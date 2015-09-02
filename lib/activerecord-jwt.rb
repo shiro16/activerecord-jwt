@@ -1,7 +1,11 @@
-require "activerecord/jwt/version"
+require 'activerecord-jwt/version'
+require 'activerecord-jwt/decoder'
+require 'activerecord-jwt/decoder_configuration'
+require 'activerecord-jwt/encoder'
+require 'activerecord-jwt/encoder_configuration'
+require 'activerecord-jwt/errors'
 
-module Activerecord
+module ActiveRecord
   module Jwt
-    # Your code goes here...
   end
 end
