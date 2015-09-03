@@ -1,3 +1,5 @@
+require 'jwt'
+require 'active_record'
 require 'activerecord-jwt/version'
 require 'activerecord-jwt/decoder'
 require 'activerecord-jwt/decoder_configuration'

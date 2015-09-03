@@ -1,13 +1,6 @@
 module ActiveRecord::Jwt
   module Encoder
-    module_function
-    def self.configure(&block)
-      yield(configuration)
-    end
-
-    def configuration
-      @_configuration ||= EncoderConfiguration.new
-    end
+    extend ActiveSupport::Concern
 
     def jwt
       JWT.encode(payload, ActiveRecord::Jwt::Encoder.configuration.key, ActiveRecord::Jwt::Encoder.configuration.algorithms)
@@ -23,6 +16,15 @@ module ActiveRecord::Jwt
         iat: Time.now.to_i,
         class: self.class.to_s
       }
+    end
+
+    module_function
+    def self.configure(&block)
+      yield(configuration)
+    end
+
+    def configuration
+      @_configuration ||= EncoderConfiguration.new
     end
   end
 end

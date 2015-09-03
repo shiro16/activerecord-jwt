@@ -1,22 +1,25 @@
 module ActiveRecord::Jwt
   class DecoderConfiguration
-    attr_accessor :algorithm, :key, :class, :exp, :iss, :aud, :iat, :sub
+    attr_accessor :algorithm, :key, :class, :exp, :iss, :aud, :iat
 
     def initialize
-
+      self.algorithm = 'HS256'
+      self.class     = true
+      self.exp       = true
+      self.iss       = 'issuer'
+      self.aud       = 'audience'
+      self.iat       = true
     end
 
     def options
       {
-        algorithm: self.algorithm,
+        algorithm:         self.algorithm,
         verify_expiration: self.exp.present?,
-        verify_iss: self.iss.present?,
-        verify_aud: self.aud.present?,
-        verify_iat: self.iat.present?,
-        verify_sub: self.sub.present?,
+        verify_iss:        self.iss.present?,
+        verify_aud:        self.aud.present?,
+        verify_iat:        self.iat.present?,
         'iss' => self.iss,
-        'aud' => self.aud,
-        'sub' => self.sub
+        'aud' => self.aud
       }
     end
   end

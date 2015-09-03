@@ -1,13 +1,6 @@
 module ActiveRecord::Jwt
   module Decoder
-    module_function
-    def self.configure(&block)
-      yield(configuration)
-    end
-
-    def configuration
-      @_configuration ||= DecoderConfiguration.new
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
       def find_authenticated_jwt(jwt)
@@ -27,6 +20,15 @@ module ActiveRecord::Jwt
       def payload_valid?(payload)
         raise ActiveRecord::Jwt::InvalidError.new if ActiveRecord::Jwt::Decoder.configuration.class && payload['class'] != self.class.to_s
       end
+    end
+
+    module_function
+    def self.configure(&block)
+      yield(configuration)
+    end
+
+    def configuration
+      @_configuration ||= DecoderConfiguration.new
     end
   end
 end
