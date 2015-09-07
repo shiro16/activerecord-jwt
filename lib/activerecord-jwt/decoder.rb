@@ -5,7 +5,7 @@ module ActiveRecord::Jwt
     module ClassMethods
       def find_authenticated_jwt(jwt)
         decoded_jwt = decode_jwt(jwt)
-        self.find(self.primary_key => decoded_jwt[:payload]['sub'])
+        self.find_by(self.primary_key => decoded_jwt[:payload]['sub'])
       end
 
       def decode_jwt(jwt)
@@ -18,7 +18,7 @@ module ActiveRecord::Jwt
 
       private
       def payload_valid?(payload)
-        raise ActiveRecord::Jwt::InvalidError.new if ActiveRecord::Jwt::Decoder.configuration.class && payload['class'] != self.class.to_s
+        raise ActiveRecord::Jwt::InvalidError.new if ActiveRecord::Jwt::Decoder.configuration.class && payload['class'] != self.name.to_s
       end
     end
 
