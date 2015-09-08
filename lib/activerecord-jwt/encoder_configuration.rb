@@ -4,7 +4,7 @@ module ActiveRecord::Jwt
 
     def initialize
       self.algorithm = 'HS256'
-      self.exp       = '600'
+      self.exp       = 600
       self.iss       = 'issuer'
       self.aud       = 'audience'
     end
