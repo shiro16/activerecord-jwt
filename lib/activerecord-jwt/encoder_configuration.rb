@@ -1,8 +1,9 @@
 module ActiveRecord::Jwt
   class EncoderConfiguration
-    attr_accessor :algorithm, :key, :exp, :iss, :aud
+    attr_accessor :sub, :algorithm, :key, :exp, :iss, :aud
 
     def initialize
+      self.sub       = :id
       self.algorithm = 'HS256'
       self.exp       = 600
       self.iss       = 'issuer'

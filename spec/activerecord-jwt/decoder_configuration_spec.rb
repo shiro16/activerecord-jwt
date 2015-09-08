@@ -4,6 +4,7 @@ describe ActiveRecord::Jwt::DecoderConfiguration do
   context "default instance variable" do
     let(:config) { ActiveRecord::Jwt::DecoderConfiguration.new }
 
+    it { expect(config.sub).to eq(:id) }
     it { expect(config.algorithm).to eq('HS256') }
     it { expect(config.class).to be_truthy }
     it { expect(config.exp).to be_truthy }

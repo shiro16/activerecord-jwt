@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class User < ActiveRecord::Base
-    include ActiveRecord::Jwt::Decoder
+  include ActiveRecord::Jwt::Decoder
 end
 
 describe ActiveRecord::Jwt::Decoder do
@@ -10,7 +10,7 @@ describe ActiveRecord::Jwt::Decoder do
   let(:user) { User.create(nickname: "test") }
   let(:payload) {
     {
-      'sub' => user.id,
+      'sub' => user.nickname,
       'iss' => 'issuer',
       'aud' => 'audience',
       'class' => User.name
@@ -20,11 +20,14 @@ describe ActiveRecord::Jwt::Decoder do
 
   before do
     ActiveRecord::Jwt::Decoder.configure do |config|
+      config.sub       = :nickname
       config.key       = secret_key
       config.algorithm = algorithm
       config.class     = true
     end
   end
+
+  after { User.destroy_all }
 
   describe '.find_authenticated_jwt' do
     context 'when authenticate jwt' do
@@ -42,6 +45,7 @@ describe ActiveRecord::Jwt::Decoder do
       before do
         user.destroy
       end
+
       it { expect(subject).to be_nil }
     end
   end

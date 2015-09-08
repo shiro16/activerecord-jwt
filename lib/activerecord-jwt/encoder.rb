@@ -9,7 +9,7 @@ module ActiveRecord::Jwt
     private
     def payload
       {
-        sub: self.id,
+        sub: self.send(ActiveRecord::Jwt::Encoder.configuration.sub),
         exp: Time.now.to_i + ActiveRecord::Jwt::Encoder.configuration.exp.to_i,
         iss: ActiveRecord::Jwt::Encoder.configuration.iss,
         aud: ActiveRecord::Jwt::Encoder.configuration.aud,

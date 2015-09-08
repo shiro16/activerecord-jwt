@@ -10,7 +10,7 @@ describe ActiveRecord::Jwt::Encoder do
   let(:user) { User.create(nickname: "test") }
   let(:payload) {
     {
-      sub: user.id,
+      sub: user.nickname,
       exp: Time.now.to_i + 60,
       iss: 'issuer',
       aud: 'audience',
@@ -21,6 +21,7 @@ describe ActiveRecord::Jwt::Encoder do
 
   before do
     ActiveRecord::Jwt::Encoder.configure do |config|
+      config.sub = :nickname
       config.key = secret_key
       config.algorithm = algorithm
       config.exp = 60
@@ -28,6 +29,8 @@ describe ActiveRecord::Jwt::Encoder do
       config.aud = 'audience'
     end
   end
+
+  after { User.destroy_all }
 
   describe '#jwt' do
     let(:jwt) { JWT.encode(payload, secret_key, algorithm) }

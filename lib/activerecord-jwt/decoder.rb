@@ -5,7 +5,7 @@ module ActiveRecord::Jwt
     module ClassMethods
       def find_authenticated_jwt(jwt)
         decoded_jwt = decode_jwt(jwt)
-        self.find_by(self.primary_key => decoded_jwt[:payload]['sub'])
+        self.find_by(ActiveRecord::Jwt::Decoder.configuration.sub => decoded_jwt[:payload]['sub'])
       end
 
       def decode_jwt(jwt)
