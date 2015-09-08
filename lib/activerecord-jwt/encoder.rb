@@ -3,14 +3,14 @@ module ActiveRecord::Jwt
     extend ActiveSupport::Concern
 
     def jwt
-      JWT.encode(payload, ActiveRecord::Jwt::Encoder.configuration.key, ActiveRecord::Jwt::Encoder.configuration.algorithms)
+      JWT.encode(payload, ActiveRecord::Jwt::Encoder.configuration.key, ActiveRecord::Jwt::Encoder.configuration.algorithm)
     end
 
     private
     def payload
       {
         sub: self.id,
-        exp: Time.now.to_i + ActiveRecord::Jwt::Encoder.configuration.exp,
+        exp: Time.now.to_i + ActiveRecord::Jwt::Encoder.configuration.exp.to_i,
         iss: ActiveRecord::Jwt::Encoder.configuration.iss,
         aud: ActiveRecord::Jwt::Encoder.configuration.aud,
         iat: Time.now.to_i,
