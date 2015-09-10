@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["shiro16"]
   spec.email         = ["nyanyanyawan24@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{This ActiveRecord extension adds JWT(JSON Web Token) method}
+  spec.description   = %q{This ActiveRecord extension adds JWT(JSON Web Token) method}
+  spec.homepage      = "https://github.com/shiro16/activerecord-jwt"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
